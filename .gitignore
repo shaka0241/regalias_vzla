@@ -21,3 +21,6 @@ htmlcov/
 .idea/
 .vscode/
 .DS_Store
+
+# Notas y guías locales (no versionar)
+local/

@@ -54,3 +54,16 @@ pytest            # tests
 ruff check .      # lint
 mypy              # chequeo estático estricto
 ```
+
+## Publicación a PyPI
+
+El workflow `release.yml` se dispara al crear un tag `v*`:
+
+```bash
+git tag v0.1.0 && git push origin v0.1.0
+```
+
+Pipeline: verifica que el tag coincida con la versión (`pyproject.toml` y `__init__.py`) → build sdist/wheel → `twine check` → smoke test del wheel en Python 3.9–3.13 → publicación con **Trusted Publishing** (OIDC).
+
+Requisito único de configuración (una vez): dar de alta el *trusted publisher* en [PyPI](https://pypi.org/manage/account/publishing/) con owner `shaka0241`, repo `regalias_vzla`, workflow `release.yml`, environment `pypi`.
+
