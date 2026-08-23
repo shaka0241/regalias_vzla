@@ -1,4 +1,11 @@
-"""regalias_vzla: cálculo automatizado de regalías petroleras venezolanas."""
+"""regalias_vzla: cálculo automatizado de regalías petroleras venezolanas.
+
+Herramienta de carácter educativo y de referencia técnica. NO constituye
+asesoría legal, fiscal ni financiera; no está afiliada ni avalada por PDVSA,
+el Ministerio de Petróleo, el SENIAT ni ningún ente del Estado venezolano.
+Los resultados son estimaciones referenciales SIN validez oficial. Verifique
+siempre el instrumento vigente en la Gaceta Oficial. Licencia MIT.
+"""
 
 from regalias_vzla.calculo import MotorRegalias, ResultadoRegalia
 from regalias_vzla.fluidos import GRAVEDAD_EXTRAPESADO, FluidoCrudo

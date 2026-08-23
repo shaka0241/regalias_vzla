@@ -19,3 +19,17 @@ El Motor de Regalías garantiza este orden de cálculo inalterable:
 2. **Ajuste de Precio Comercial:** Aplicación del Factor de Ajuste API sobre el precio marcador.
 3. **Valoración Base:** Cálculo del Ingreso Bruto ($V_{neto} \times \text{Precio Ajustado}$).
 4. **Liquidación:** Aplicación de la tasa de regalía sobre el Ingreso Bruto.
+
+## Marco Normativo y Advertencias
+
+- Las tasas legales provienen de la **Ley Orgánica de Hidrocarburos**
+  (Decreto N° 1.510, G.O. N° 37.323 del 13/11/2001; Reforma Parcial,
+  G.O. N° 38.493 del 04/08/2006): ordinaria 20 % (art. 42), banda secundaria
+  hasta 30 % (art. 43) y reducción a 10 % para extrapesados de la Faja.
+- El **Factor de Ajuste API es comercialmente referencial** (primas/descuentos
+  por gravedad observados en el mercado): NO proviene de ningún artículo legal.
+  La fórmula fiscal oficial del Ministerio incluye un ajuste por gravedad (AGA)
+  cuyos valores no son públicos.
+- Los cálculos son estimaciones referenciales **sin validez oficial** ante
+  PDVSA, el Ministerio de Petróleo ni el SENIAT. Verifique siempre el
+  instrumento vigente en la Gaceta Oficial.

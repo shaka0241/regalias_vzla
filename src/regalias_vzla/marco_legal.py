@@ -1,4 +1,25 @@
-"""Capa de negocio gubernamental: tasas legales y ajustes de precio por API."""
+"""Marco jurídico-petrolero venezolano: tasas de regalía y factores de ajuste API.
+
+Fundamento normativo:
+- Ley Orgánica de Hidrocarburos (LOH), Decreto N° 1.510 con Fuerza de Ley,
+  G.O. N° 37.323 del 13/11/2001; Reforma Parcial, G.O. N° 38.493 del 04/08/2006.
+    * Art. 42: regalía ordinaria del 20 % del volumen producido en el área.
+    * Art. 43: banda secundaria, hasta 30 % cuando la productividad acumulada
+      del campo supera los umbrales fijados por el Ejecutivo Nacional
+      (Decreto N° 5.330, G.O. N° 38.270 del 23/09/2005).
+    * Art. 44: pago mínimo del 33⅓ % en efectivo; saldo en especie o efectivo
+      a opción del Estado (NO modelado por esta librería).
+- Reducción al 10 % para crudos extrapesados de la Faja Petrolífera del
+  Orinoco (< 10 °API): Decreto N° 4.889 (G.O. N° 37.458 del 24/06/2002).
+  [Verificar texto consolidado en Gaceta Oficial antes de citar en producción.]
+
+ADVERTENCIA: los factores de TablaAjusteApi.oficial() son REFERENCIALES de la
+práctica comercial (descuentos/primas por gravedad API, cf. Merey 16 frente a
+Brent/WTI) y NO provienen de ningún artículo de ley. La fórmula fiscal oficial
+de precios del Ministerio incluye un ajuste por gravedad (AGA) cuyos valores
+reales no son públicos. Ningún resultado de esta librería tiene validez ante
+PDVSA, el Ministerio de Petróleo o el SENIAT.
+"""
 
 from __future__ import annotations
 
@@ -8,8 +29,11 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from regalias_vzla.fluidos import GRAVEDAD_EXTRAPESADO
 
+# Extrapesados FPO (< 10 °API): Decreto N° 4.889 (G.O. N° 37.458 del 24/06/2002). [Verificar]
 TASA_REGALIA_EXTRAPESADO = Decimal("0.10")
+# Art. 42 LOH (G.O. N° 37.323 del 13/11/2001; ref. Reforma Parcial G.O. N° 38.493 del 04/08/2006).
 TASA_REGALIA_ESTANDAR = Decimal("0.20")
+# Art. 43 LOH; umbrales: Decreto N° 5.330 (G.O. N° 38.270 del 23/09/2005).
 TASA_REGALIA_SECUNDARIA = Decimal("0.30")
 
 FACTOR_AJUSTE_NEUTRO = Decimal("1.00")
@@ -75,6 +99,10 @@ class TablaAjusteApi(BaseModel):
     def oficial(cls) -> TablaAjusteApi:
         """Tabla referencial venezolana (punto de partida configurable).
 
+        Factores de práctica comercial (NO statutory): reflejan primas y
+        descuentos por gravedad API observados en el mercado (cf. Merey 16
+        frente a Brent/WTI), no un artículo de ley.
+
         - < 10° API    → ``0.90`` (penalización extrapesado / diluentes)
         - 10° a 21.99° → ``0.95`` (crudo pesado)
         - 22° a 29.99° → ``1.00`` (crudo mediano, neutro)
@@ -100,7 +128,7 @@ class TasaLegal(BaseModel):
 
     model_config = ConfigDict(frozen=True)
 
-    nombre: str = Field(default="Regalía ordinaria - Ley de Hidrocarburos")
+    nombre: str = Field(default="Regalía ordinaria - Ley Orgánica de Hidrocarburos")
     tasa_regalia: Decimal = Field(..., gt=0, le=1, description="Tasa en decimal (0.20 = 20 %).")
 
     @classmethod

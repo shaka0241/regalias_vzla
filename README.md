@@ -36,6 +36,35 @@ Orden de cálculo inalterable:
 3. Ingreso bruto = volumen neto × precio ajustado.
 4. Regalía = ingreso bruto × tasa legal.
 
+## ⚠️ Aviso legal
+
+**`regalias_vzla` es una herramienta informática de carácter educativo y de
+referencia técnica. No constituye asesoría legal, fiscal ni financiera.**
+
+- Esta librería **no está afiliada, avalada ni patrocinada** por Petróleos de
+  Venezuela, S.A. (PDVSA), el Ministerio del Poder Popular de Petróleo, el
+  Servicio Nacional Integrado de Administración Aduanera y Tributaria (SENIAT)
+  ni ningún otro ente del Estado venezolano.
+- Los resultados son **estimaciones referenciales** basadas en tasas y factores
+  configurables. **No tienen validez oficial** para declaraciones fiscales,
+  liquidaciones ante PDVSA, fiscalizaciones del Ministerio de Petróleo,
+  procedimientos administrativos ni procesos judiciales.
+- Las tasas incorporadas reflejan el texto de la **Ley Orgánica de
+  Hidrocarburos** (Decreto N° 1.510, G.O. N° 37.323 del 13/11/2001; Reforma
+  Parcial, G.O. N° 38.493 del 04/08/2006) y decretos complementarios citados en
+  cada módulo, pero pueden ser modificados por normas posteriores o por cambios
+  en la práctica administrativa. **Verifique siempre el instrumento vigente en
+  la Gaceta Oficial de la República Bolivariana de Venezuela.**
+- Los factores de ajuste por gravedad API son **comercialmente referenciales**
+  y no provienen de ningún artículo legal.
+- El autor no garantiza la exactitud, integridad ni actualidad de los datos
+  normativos, y **no asume responsabilidad** por daños derivados de su uso,
+  incluidas decisiones comerciales, fiscales o de inversión. Su empleo en
+  contextos profesionales (auditorías, valoraciones, litigios) exige validación
+  independiente por profesionales calificados en derecho petrolero venezolano.
+
+Licencia MIT — ver [LICENSE](LICENSE).
+
 ## Estructura
 
 | Módulo          | Responsabilidad                                        |
