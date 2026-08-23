@@ -7,7 +7,7 @@ from decimal import ROUND_HALF_UP, Decimal, localcontext
 from pydantic import BaseModel, ConfigDict, Field, field_serializer
 
 from regalias_vzla.fluidos import FluidoCrudo
-from regalias_vzla.marco_legal import TasaLegal, factor_ajuste_api
+from regalias_vzla.marco_legal import TablaAjusteApi, TasaLegal
 
 _CENTIMO = Decimal("0.01")
 _MILLESIMA_BBL = Decimal("0.000001")
@@ -55,13 +55,23 @@ class MotorRegalias:
     4. Liquidación (regalía según tasa legal).
     """
 
-    def __init__(self, tasa_legal: TasaLegal) -> None:
+    def __init__(
+        self, tasa_legal: TasaLegal, tabla_ajuste_api: TablaAjusteApi | None = None
+    ) -> None:
         self._tasa_legal = tasa_legal
+        self._tabla_ajuste_api = (
+            tabla_ajuste_api if tabla_ajuste_api is not None else TablaAjusteApi.oficial()
+        )
 
     @property
     def tasa_legal(self) -> TasaLegal:
         """Tasa legal inyectada a este motor."""
         return self._tasa_legal
+
+    @property
+    def tabla_ajuste_api(self) -> TablaAjusteApi:
+        """Tabla de factores de ajuste API usada por este motor."""
+        return self._tabla_ajuste_api
 
     def liquidar(
         self,
@@ -83,7 +93,7 @@ class MotorRegalias:
 
         with localcontext() as contexto:
             contexto.prec = _PRECISION_INTERNA
-            factor = factor_ajuste_api(fluido.gravedad_api)
+            factor = self._tabla_ajuste_api.factor_para(fluido.gravedad_api)
             volumen_neto = fluido.volumen_neto
             precio_ajustado = precio * factor
             ingreso_bruto = volumen_neto * precio_ajustado

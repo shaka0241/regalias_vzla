@@ -9,6 +9,9 @@ from regalias_vzla.marco_legal import (
     FACTOR_AJUSTE_LIVIANO,
     TASA_REGALIA_ESTANDAR,
     TASA_REGALIA_EXTRAPESADO,
+    TASA_REGALIA_SECUNDARIA,
+    BandaAjusteApi,
+    TablaAjusteApi,
     TasaLegal,
     factor_ajuste_api,
 )
@@ -63,3 +66,66 @@ class TestTasaLegal:
         tasa = TasaLegal.para_gravedad_api(25)
         with pytest.raises(ValidationError):
             tasa.tasa_regalia = Decimal("0.50")  # type: ignore[misc]
+
+
+class TestTablaAjusteApi:
+    def test_tabla_oficial_reproduce_los_factores(self) -> None:
+        tabla = TablaAjusteApi.oficial()
+        assert tabla.factor_para(8.5) == Decimal("0.90")
+        assert tabla.factor_para(15.0) == Decimal("0.95")
+        assert tabla.factor_para(25.0) == Decimal("1.00")
+        assert tabla.factor_para(35.0) == Decimal("1.05")
+
+    def test_tabla_personalizada_sin_banda_superior(self) -> None:
+        tabla = TablaAjusteApi(
+            bandas=(BandaAjusteApi(hasta_gravedad=100, factor="1.00"),),
+            factor_final="1.00",
+        )
+        assert tabla.factor_para(8.5) == Decimal("1.00")
+        assert tabla.factor_para(45.0) == Decimal("1.00")
+
+    def test_factor_final_personalizado(self) -> None:
+        tabla = TablaAjusteApi(
+            bandas=(BandaAjusteApi(hasta_gravedad=20, factor="0.80"),),
+            factor_final="1.50",
+        )
+        assert tabla.factor_para(19.9) == Decimal("0.80")
+        assert tabla.factor_para(20.0) == Decimal("1.50")
+
+    @pytest.mark.parametrize(
+        "bandas",
+        [
+            (
+                BandaAjusteApi(hasta_gravedad=30, factor="0.90"),
+                BandaAjusteApi(hasta_gravedad=20, factor="0.95"),
+            ),
+            (
+                BandaAjusteApi(hasta_gravedad=20, factor="0.90"),
+                BandaAjusteApi(hasta_gravedad=20, factor="0.95"),
+            ),
+        ],
+    )
+    def test_limites_no_ascendentes_lanzan_validation_error(
+        self, bandas: tuple[BandaAjusteApi, ...]
+    ) -> None:
+        with pytest.raises(ValidationError):
+            TablaAjusteApi(bandas=bandas)
+
+    def test_factor_fuera_de_rango_lanza_validation_error(self) -> None:
+        with pytest.raises(ValidationError):
+            BandaAjusteApi(hasta_gravedad=20, factor="3")
+
+    def test_tabla_vacia_lanza_validation_error(self) -> None:
+        with pytest.raises(ValidationError):
+            TablaAjusteApi(bandas=())
+
+    def test_modelo_congelado(self) -> None:
+        tabla = TablaAjusteApi.oficial()
+        with pytest.raises(ValidationError):
+            tabla.factor_final = Decimal("2")  # type: ignore[misc]
+
+
+class TestTasaSecundaria:
+    def test_secundaria_treinta_por_ciento(self) -> None:
+        tasa = TasaLegal.secundaria()
+        assert tasa.tasa_regalia == TASA_REGALIA_SECUNDARIA == Decimal("0.30")

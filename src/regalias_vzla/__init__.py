@@ -9,7 +9,14 @@ from regalias_vzla.ingesta import (
     parsear_json,
     parsear_registros,
 )
-from regalias_vzla.marco_legal import TASA_REGALIA_ESTANDAR, TASA_REGALIA_EXTRAPESADO, TasaLegal
+from regalias_vzla.marco_legal import (
+    TASA_REGALIA_ESTANDAR,
+    TASA_REGALIA_EXTRAPESADO,
+    TASA_REGALIA_SECUNDARIA,
+    BandaAjusteApi,
+    TablaAjusteApi,
+    TasaLegal,
+)
 from regalias_vzla.marco_legal import factor_ajuste_api as factor_ajuste_api
 
 __version__ = "0.1.0"
@@ -18,9 +25,12 @@ __all__ = [
     "GRAVEDAD_EXTRAPESADO",
     "TASA_REGALIA_ESTANDAR",
     "TASA_REGALIA_EXTRAPESADO",
+    "TASA_REGALIA_SECUNDARIA",
+    "BandaAjusteApi",
     "FluidoCrudo",
     "MotorRegalias",
     "ResultadoRegalia",
+    "TablaAjusteApi",
     "TasaLegal",
     "__version__",
     "cargar_csv",

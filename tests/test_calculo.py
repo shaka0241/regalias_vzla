@@ -7,7 +7,14 @@ from decimal import Decimal
 import pytest
 from pydantic import ValidationError
 
-from regalias_vzla import FluidoCrudo, MotorRegalias, ResultadoRegalia, TasaLegal
+from regalias_vzla import (
+    BandaAjusteApi,
+    FluidoCrudo,
+    MotorRegalias,
+    ResultadoRegalia,
+    TablaAjusteApi,
+    TasaLegal,
+)
 
 
 @pytest.fixture
@@ -87,3 +94,36 @@ class TestResultadoRegalia:
         assert '"regalia_usd":617400.0' in json_texto
         restaurado = ResultadoRegalia.model_validate_json(json_texto)
         assert restaurado == resultado
+
+
+class TestTablaPersonalizadaEnMotor:
+    TABLA_NEUTRA = TablaAjusteApi(
+        bandas=(BandaAjusteApi(hasta_gravedad=100, factor="1.00"),),
+        factor_final="1.00",
+    )
+
+    def test_tabla_personalizada_elimina_la_penalizacion(
+        self, fluido_extrapesado: FluidoCrudo
+    ) -> None:
+        motor = MotorRegalias(TasaLegal.para_gravedad_api(8.5), tabla_ajuste_api=self.TABLA_NEUTRA)
+        resultado = motor.liquidar(fluido_extrapesado, precio_marcador=70)
+
+        assert resultado.factor_ajuste_api == Decimal("1.00")
+        assert resultado.precio_ajustado_usd == Decimal("70.00")
+        assert resultado.ingreso_bruto_usd == Decimal("6860000.00")
+        assert resultado.regalia_usd == Decimal("686000.00")
+
+    def test_regimen_secundario_treinta_por_ciento(self, fluido_mediano: FluidoCrudo) -> None:
+        motor = MotorRegalias(TasaLegal.secundaria())
+        resultado = motor.liquidar(fluido_mediano, precio_marcador=80)
+
+        assert resultado.tasa_aplicada == Decimal("0.30")
+        assert resultado.regalia_usd == Decimal("1194000.00")
+
+    def test_tabla_inyectada_accesible_desde_motor(self) -> None:
+        tabla = TablaAjusteApi.oficial()
+        motor = MotorRegalias(TasaLegal.secundaria(), tabla)
+        assert motor.tabla_ajuste_api is tabla
+
+    def test_motor_sin_tabla_usa_la_oficial(self, motor_extrapesado: MotorRegalias) -> None:
+        assert motor_extrapesado.tabla_ajuste_api == TablaAjusteApi.oficial()
