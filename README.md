@@ -1,5 +1,7 @@
 # regalias_vzla
 
+[![CI](https://github.com/shaka0241/regalias_vzla/actions/workflows/ci.yml/badge.svg)](https://github.com/shaka0241/regalias_vzla/actions/workflows/ci.yml)
+
 Librería Python para el cálculo automatizado de **regalías petroleras venezolanas**, con validación estricta de tipos (Pydantic), modelos inmutables y un orden matemático de liquidación garantizado.
 
 ## Instalación (desarrollo)

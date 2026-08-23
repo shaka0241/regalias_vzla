@@ -92,3 +92,23 @@ class TestCargaDesdeArchivo:
         ruta_json = tmp_path / "produccion.json"
         ruta_json.write_text(json.dumps(JSON_ENVUELTO), encoding="utf-8")
         assert len(cargar_json(ruta_json)) == 1
+
+    def test_parsear_csv_acepta_bytes(self) -> None:
+        fluidos = parsear_csv(CSV_VALIDO.encode("utf-8"))
+        assert len(fluidos) == 2
+
+    def test_cargar_csv_con_codificacion_invalida_lanza_value_error(self, tmp_path) -> None:
+        ruta = tmp_path / "latin1.csv"
+        ruta.write_bytes("Volumen Bruto,BsW,API\n1000,0.1,30\n".encode("utf-16"))
+        with pytest.raises(ValueError, match="UTF-8"):
+            cargar_csv(ruta)
+
+    def test_cargar_json_con_contenido_invalido_lanza_value_error(self, tmp_path) -> None:
+        ruta = tmp_path / "roto.json"
+        ruta.write_text("{no es json", encoding="utf-8")
+        with pytest.raises(ValueError, match="JSON inválido"):
+            cargar_json(ruta)
+
+    def test_cargar_json_con_ruta_inexistente_lanza_value_error(self, tmp_path) -> None:
+        with pytest.raises(ValueError, match="No se pudo leer"):
+            cargar_json(tmp_path / "fantasma.json")
