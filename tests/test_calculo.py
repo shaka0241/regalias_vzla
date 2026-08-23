@@ -1,5 +1,7 @@
 """Pruebas del orquestador financiero: MotorRegalias y ResultadoRegalia."""
 
+from __future__ import annotations
+
 from decimal import Decimal
 
 import pytest
