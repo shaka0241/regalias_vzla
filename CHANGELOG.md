@@ -17,6 +17,21 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y 
   lectura del resultado campo a campo) y `docs/contributing.md` (calidad,
   convenciones y proceso de PR).
 
+### Security
+- Endurecido el pipeline CI/CD: todas las GitHub Actions ancladas a SHA de
+  commit (antes tags mutables; `pypa/gh-action-pypi-publish` apuntaba a la
+  rama `release/v1`), permisos `contents: read` de mínimo privilegio en
+  `ci.yml`/`release.yml` y versiones exactas fijadas para `build` y `twine`
+  en el job que produce el artefacto publicado.
+- Cadena de suministro reproducible: lockfile `uv.lock` con hashes SHA256,
+  instalación de dependencias en CI vía `uv sync --locked`, nuevo job
+  `audit` con `pip-audit --strict` sobre las dependencias exportadas del
+  lockfile y `.github/dependabot.yml` (ecosistemas `pip` y `github-actions`).
+- Validación fail-fast de `gravedad_api`: se rechazan valores no finitos
+  (`Infinity`/`NaN`, aceptados antes por `json.loads`) y fuera del rango
+  físico `(0, 80]`; previamente un crudo con gravedad infinita producía una
+  liquidación silenciosa. Cubierto por tests negativos vía dict y JSON.
+
 ## [0.1.0] - 2026-08-23
 ### Added
 - `FluidoCrudo`: validación física (BS&W, gravedad API) y cálculo de volumen neto.
