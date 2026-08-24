@@ -75,6 +75,16 @@ class TestParsearJson:
         with pytest.raises(ValidationError):
             parsear_json(json.dumps(registro))
 
+    @pytest.mark.parametrize(
+        "literal",
+        ["Infinity", "-Infinity", "NaN"],
+    )
+    def test_json_con_flotantes_no_finitos_lanza_validation_error(self, literal: str) -> None:
+        """json.loads acepta Infinity/NaN no estándar; el dominio debe rechazarlos."""
+        contenido = f'[{{"volumen_bruto": "1000", "bs_w": "0.1", "gravedad_api": {literal}}}]'
+        with pytest.raises(ValidationError):
+            parsear_json(contenido)
+
 
 class TestParsearRegistros:
     def test_diccionarios_canonicos(self) -> None:

@@ -42,6 +42,10 @@ class TestValidacion:
             ("bs_w", "1.01"),
             ("gravedad_api", "0"),
             ("gravedad_api", "-15"),
+            ("gravedad_api", float("inf")),
+            ("gravedad_api", float("-inf")),
+            ("gravedad_api", float("nan")),
+            ("gravedad_api", "80.1"),
         ],
     )
     def test_valores_invalidos_lanzan_validation_error(self, campo: str, valor: str) -> None:
@@ -49,6 +53,10 @@ class TestValidacion:
         datos[campo] = valor
         with pytest.raises(ValidationError):
             FluidoCrudo.model_validate(datos)
+
+    def test_gravedad_api_en_cota_superior_es_valido(self) -> None:
+        fluido = FluidoCrudo(volumen_bruto="1000", bs_w="0.1", gravedad_api=80)
+        assert fluido.gravedad_api == 80
 
 
 class TestCalculos:

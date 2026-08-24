@@ -34,7 +34,12 @@ class FluidoCrudo(BaseModel):
     gravedad_api: float = Field(
         ...,
         gt=0,
-        description="Densidad del crudo en grados API (< 10 es extrapesado).",
+        le=80,
+        allow_inf_nan=False,
+        description=(
+            "Densidad del crudo en grados API (< 10 es extrapesado). "
+            "Debe ser finita y positiva; se rechazan Infinity/NaN."
+        ),
     )
 
     @property
