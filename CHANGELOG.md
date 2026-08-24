@@ -4,6 +4,11 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y 
 
 ## [No publicado]
 ### Added
+- Sitio de documentación con MkDocs Material + mkdocstrings: referencia API
+  auto-generada de los 4 módulos, guías, changelog integrado y aviso legal
+  como snippet reutilizable. Despliegue a GitHub Pages vía
+  `.github/workflows/docs.yml` (build `--strict`). Extra `[docs]` en
+  `pyproject.toml` y URL `Documentation` en los metadatos.
 - Galería de ejemplos `examples/` (6 scripts ejecutables: cálculo básico, tasa
   secundaria, tabla API personalizada, ingesta CSV/JSON, manejo de errores y
   serialización JSON) con test anti-drift (`tests/test_ejemplos.py`) que

@@ -1,0 +1,69 @@
+site_name: regalias_vzla
+site_description: >-
+  Cálculo automatizado de regalías petroleras venezolanas conforme a la
+  Ley Orgánica de Hidrocarburos.
+site_url: https://shaka0241.github.io/regalias_vzla/
+repo_url: https://github.com/shaka0241/regalias_vzla
+repo_name: shaka0241/regalias_vzla
+
+theme:
+  name: material
+  language: es
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Cambiar a modo oscuro
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Cambiar a modo claro
+  features:
+    - announce.dismiss
+    - content.code.copy
+    - navigation.footer
+    - navigation.sections
+    - navigation.top
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.snippets:
+      base_path: .
+      check_paths: true
+  - pymdownx.superfences
+  - tables
+  - toc:
+      permalink: true
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [src]
+          options:
+            docstring_section_style: table
+            members_order: source
+            separate_signature: true
+            show_root_heading: true
+            show_source: true
+            show_signature_annotations: true
+
+nav:
+  - Inicio: index.md
+  - Guías:
+      - quickstart.md
+      - domain_context.md
+      - architecture.md
+      - contributing.md
+  - Referencia API:
+      - api/fluidos.md
+      - api/marco_legal.md
+      - api/calculo.md
+      - api/ingesta.md
+  - Changelog: changelog.md

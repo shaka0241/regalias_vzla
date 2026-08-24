@@ -78,7 +78,7 @@ Así ningún ejemplo documentado puede quedar desactualizado respecto al código
 4. Añade o ajusta tests: toda funcionalidad nueva llega con pruebas, y todo
    bug corregido llega con el test que lo reproduce.
 5. Ejecuta las cuatro comprobaciones de la sección anterior hasta verde.
-6. Actualiza [`CHANGELOG.md`](../CHANGELOG.md) bajo "No publicado".
+6. Actualiza [`CHANGELOG.md`](https://github.com/shaka0241/regalias_vzla/blob/main/CHANGELOG.md) bajo "No publicado".
 7. Abre el Pull Request describiendo qué cambia y por qué.
 
 ## Cambios normativos
@@ -88,6 +88,7 @@ Si modificas tasas, umbrales o fórmulas legales:
 - Cita el instrumento vigente (artículo, decreto y **Gaceta Oficial** con
   fecha) en el docstring correspondiente.
 - Actualiza [`domain_context.md`](domain_context.md) y el aviso del
-  [`README.md`](../README.md) si aplica.
+  [`README.md`](https://github.com/shaka0241/regalias_vzla/blob/main/README.md)
+  si aplica.
 - Marca como `[Verificar]` toda referencia no confirmada en Gaceta, como se
   hace hoy con el Decreto N° 4.889.

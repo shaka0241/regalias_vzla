@@ -94,7 +94,7 @@ Todos los mensajes son en español e incluyen el detalle del campo fallido.
 
 | Recurso                                   | Contenido                                          |
 | ----------------------------------------- | -------------------------------------------------- |
-| [`../examples/`](../examples/)            | Galería de scripts ejecutables y verificados en CI |
+| [Ejemplos en GitHub](https://github.com/shaka0241/regalias_vzla/tree/main/examples) | Galería de scripts ejecutables y verificados en CI |
 | [`domain_context.md`](domain_context.md)  | Glosario del dominio y orden de operaciones        |
 | [`architecture.md`](architecture.md)      | Estructura de módulos y decisiones de diseño       |
 

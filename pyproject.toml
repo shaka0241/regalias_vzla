@@ -33,6 +33,7 @@ Homepage = "https://github.com/shaka0241/regalias_vzla"
 Repository = "https://github.com/shaka0241/regalias_vzla"
 Issues = "https://github.com/shaka0241/regalias_vzla/issues"
 Changelog = "https://github.com/shaka0241/regalias_vzla/blob/main/CHANGELOG.md"
+Documentation = "https://shaka0241.github.io/regalias_vzla/"
 
 [project.optional-dependencies]
 dev = [
@@ -42,6 +43,10 @@ dev = [
     "ruff>=0.4",
     "build>=1.2",
     "twine>=5.0",
+]
+docs = [
+    "mkdocs-material>=9.5",
+    "mkdocstrings[python]>=0.25",
 ]
 
 [tool.setuptools.packages.find]

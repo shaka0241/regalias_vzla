@@ -74,7 +74,7 @@ Licencia MIT — ver [LICENSE](LICENSE).
 | `calculo.py`    | Orquestador financiero (`MotorRegalias`)               |
 | `ingesta.py`    | Adaptadores CSV / JSON hacia los modelos de dominio    |
 
-Ver `docs/` para contexto de dominio, arquitectura y guía de contribución.
+Ver [`docs/`](docs/) para contexto de dominio, arquitectura y guía de contribución, y la [referencia API en línea](https://shaka0241.github.io/regalias_vzla/) para firmas completas generadas desde los docstrings.
 
 ## Desarrollo
 
