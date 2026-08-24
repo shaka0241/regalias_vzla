@@ -50,6 +50,8 @@ Orden de cálculo inalterable:
 
 ## Galería de ejemplos
 
+Scripts verificados en CI: `tests/test_ejemplos.py` ejecuta cada uno y compara su salida exacta.
+
 | Ejemplo | Contenido |
 | --- | --- |
 | `01_calculo_basico.py` | Flujo completo: fluido → tasa → liquidación |
