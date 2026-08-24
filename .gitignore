@@ -23,5 +23,9 @@ site/
 .vscode/
 .DS_Store
 
+# Configuración local de herramientas AI (no versionar en open source)
+.agents/
+.opencode/
+
 # Notas y guías locales (no versionar)
 local/
