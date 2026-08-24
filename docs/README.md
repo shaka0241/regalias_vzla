@@ -18,6 +18,20 @@ G.O. N° 37.323 del 13/11/2001; Reforma Parcial, G.O. N° 38.493 del 04/08/2006)
 | [`architecture.md`](architecture.md) | Estructura de módulos y decisiones de diseño |
 | [`contributing.md`](contributing.md) | Guía para contribuir |
 
+## Galería de ejemplos
+
+Scripts ejecutables en [`examples/`](../examples/), verificados en CI
+(`tests/test_ejemplos.py` ejecuta cada uno y compara su salida):
+
+| Ejemplo                          | Contenido                                        |
+| -------------------------------- | ------------------------------------------------ |
+| `01_calculo_basico.py`           | Flujo completo: fluido → tasa → liquidación      |
+| `02_tasa_secundaria.py`          | Banda secundaria 30 % vs. ordinaria 20 %         |
+| `03_tabla_api_personalizada.py`  | Tabla de ajuste API configurable                 |
+| `04_ingesta_csv_json.py`         | CSV / JSON con alias comerciales                 |
+| `05_manejo_errores.py`           | `ValidationError` y `ValueError` del dominio     |
+| `06_serializacion_api.py`        | JSON, round-trip e inmutabilidad                 |
+
 ## Referencias normativas
 
 - Ley Orgánica de Hidrocarburos — Decreto N° 1.510 con Fuerza de Ley,

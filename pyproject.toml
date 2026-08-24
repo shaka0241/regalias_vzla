@@ -66,7 +66,7 @@ disallow_untyped_decorators = false
 [tool.ruff]
 line-length = 100
 target-version = "py39"
-extend-exclude = [".agents", ".opencode"]
+extend-exclude = [".agents", ".opencode", "local"]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "UP", "B", "SIM", "RUF"]
